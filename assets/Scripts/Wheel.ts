@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab, Sprite, SpriteFrame } from 'cc';
+import { _decorator, Component, instantiate, Prefab, SpriteFrame } from 'cc';
 import { Sector } from './Sector';
 import { PrizeType } from './Prize';
 const { ccclass, property } = _decorator;
@@ -78,10 +78,17 @@ export class Wheel extends Component {
         this._angle = 0;
         this._speed = 20;
 
-        var node = instantiate(this.sectorPrefab);
-        node.parent = this.node;
-        var sector = node.getComponent(Sector);
-        sector.prize.SetSprite(this.heartSprite);
+        var offset = 360 / 16;
+        var sectorAngle = 360 / 8;
+        for (let i = 0; i < this._prizes.length; i++) {
+            var node = instantiate(this.sectorPrefab);
+            node.parent = this.node;
+
+            node.angle = offset + sectorAngle * i;
+
+            var sector = node.getComponent(Sector);
+            sector.prize.SetSprite(this._spriteFrames[i]);
+        }
     }
 
     update(deltaTime: number) {
