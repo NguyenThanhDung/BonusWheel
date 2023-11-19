@@ -1,6 +1,6 @@
 import { Sprite } from "cc";
 
-enum PrizeType {
+export enum PrizeType {
     Life,
     Coin,
     Brush,
