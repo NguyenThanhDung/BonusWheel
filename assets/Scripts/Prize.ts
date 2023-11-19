@@ -1,4 +1,5 @@
-import { Sprite } from "cc";
+import { Component, Sprite, SpriteFrame, _decorator } from "cc";
+const { ccclass, property } = _decorator;
 
 export enum PrizeType {
     Life,
@@ -8,9 +9,18 @@ export enum PrizeType {
     Hammer
 }
 
-export class Prize {
-    private type: PrizeType;
-    private amount: number;
-    private sprite: Sprite;
+@ccclass('Prize')
+export class Prize extends Component {
+    private _type: PrizeType;
+    private _amount: number;
+    private _sprite: Sprite;
+
+    onLoad() {
+        this._sprite = this.node.getComponent(Sprite);
+    }
+
+    public SetSprite(spriteFrame: SpriteFrame) {
+        this._sprite.spriteFrame = spriteFrame;
+    }
 }
 

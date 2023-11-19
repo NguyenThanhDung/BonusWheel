@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab, Sprite } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, Sprite, SpriteFrame } from 'cc';
 import { Sector } from './Sector';
 import { PrizeType } from './Prize';
 const { ccclass, property } = _decorator;
@@ -9,25 +9,25 @@ export class Wheel extends Component {
     @property({ type: Prefab })
     public sectorPrefab: Prefab;
 
-    @property({ type: Sprite })
-    public heartSprite: Sprite;
+    @property({ type: SpriteFrame })
+    public heartSprite: SpriteFrame;
 
-    @property({ type: Sprite })
-    public coinSprite: Sprite;
+    @property({ type: SpriteFrame })
+    public coinSprite: SpriteFrame;
 
-    @property({ type: Sprite })
-    public brushSprite: Sprite;
+    @property({ type: SpriteFrame })
+    public brushSprite: SpriteFrame;
 
-    @property({ type: Sprite })
-    public gemSprite: Sprite;
+    @property({ type: SpriteFrame })
+    public gemSprite: SpriteFrame;
 
-    @property({ type: Sprite })
-    public hammerSprite: Sprite;
+    @property({ type: SpriteFrame })
+    public hammerSprite: SpriteFrame;
 
     private _prizes: PrizeType[];
     private _amounts: number[];
     private _dropChance: number[];
-    private _sprites: Sprite[];
+    private _spriteFrames: SpriteFrame[];
 
     private _sector: Sector[];
     private _angle: number;
@@ -64,15 +64,15 @@ export class Wheel extends Component {
         this._dropChance.push(5);
         this._dropChance.push(20);
 
-        this._sprites = [];
-        this._sprites.push(this.heartSprite);
-        this._sprites.push(this.brushSprite);
-        this._sprites.push(this.gemSprite);
-        this._sprites.push(this.hammerSprite);
-        this._sprites.push(this.coinSprite);
-        this._sprites.push(this.brushSprite);
-        this._sprites.push(this.gemSprite);
-        this._sprites.push(this.hammerSprite);
+        this._spriteFrames = [];
+        this._spriteFrames.push(this.heartSprite);
+        this._spriteFrames.push(this.brushSprite);
+        this._spriteFrames.push(this.gemSprite);
+        this._spriteFrames.push(this.hammerSprite);
+        this._spriteFrames.push(this.coinSprite);
+        this._spriteFrames.push(this.brushSprite);
+        this._spriteFrames.push(this.gemSprite);
+        this._spriteFrames.push(this.hammerSprite);
 
         this._sector = [];
         this._angle = 0;
@@ -80,6 +80,8 @@ export class Wheel extends Component {
 
         var node = instantiate(this.sectorPrefab);
         node.parent = this.node;
+        var sector = node.getComponent(Sector);
+        sector.prize.SetSprite(this.heartSprite);
     }
 
     update(deltaTime: number) {

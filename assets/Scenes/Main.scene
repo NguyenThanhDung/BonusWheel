@@ -452,6 +452,26 @@
       "__uuid__": "2031a3a8-a776-48ea-ac35-8c8f244dd16b",
       "__expectedType__": "cc.Prefab"
     },
+    "heartSprite": {
+      "__uuid__": "122e9a54-9e34-4c9a-b2e9-de12f12953ed@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "coinSprite": {
+      "__uuid__": "36f40400-80b5-4efb-b782-c1e7844162cd@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "brushSprite": {
+      "__uuid__": "31acaee4-45d2-4700-ae48-5fff587cf087@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "gemSprite": {
+      "__uuid__": "ba27bf85-f9cd-4fc1-aea9-2d7484ce4d24@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "hammerSprite": {
+      "__uuid__": "81766919-eac2-41bb-840a-df393e51350f@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_id": "cah3ALuE9D/ZTND1XAKYox"
   },
   {

@@ -4,21 +4,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('Sector')
 export class Sector extends Component {
-    private _prize: Prize;
-
-    public get prize(): Prize {
-        return this._prize;
-    }
-    public set prize(value: Prize) {
-        this._prize = value;
-    }
-
-    start() {
-
-    }
-
-    update(deltaTime: number) {
-
-    }
+    @property({ type: Prize })
+    public prize: Prize;
 }
 
