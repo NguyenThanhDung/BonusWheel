@@ -8,6 +8,10 @@ export class Sector extends Component {
     public prize: Prize;
 
     @property({ type: Label })
-    public amount: Label;
+    public amountLabel: Label;
+
+    public SetAmount(amount: number) {
+        this.amountLabel.string = "x" + amount.toString();
+    }
 }
 

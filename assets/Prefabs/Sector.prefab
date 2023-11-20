@@ -428,7 +428,7 @@
     "prize": {
       "__id__": 7
     },
-    "amount": {
+    "amountLabel": {
       "__id__": 13
     },
     "_id": ""

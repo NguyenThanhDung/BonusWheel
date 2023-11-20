@@ -88,6 +88,7 @@ export class Wheel extends Component {
 
             var sector = node.getComponent(Sector);
             sector.prize.SetSprite(this._spriteFrames[i]);
+            sector.SetAmount(this._amounts[i]);
         }
     }
 
