@@ -32,6 +32,8 @@ export class Wheel extends Component {
     private _sector: Sector[];
     private _angle: number;
     private _speed: number;
+    private _maxSpeed: number;
+    private _reduceSpeed: number;
 
     start() {
         this._prizes = [];
@@ -77,6 +79,8 @@ export class Wheel extends Component {
         this._sector = [];
         this._angle = 0;
         this._speed = 0;
+        this._maxSpeed = 200;
+        this._reduceSpeed = 0.5;
 
         var offset = 360 / 16;
         var sectorAngle = 360 / 8;
@@ -95,10 +99,16 @@ export class Wheel extends Component {
     update(deltaTime: number) {
         this._angle -= deltaTime * this._speed;
         this.node.setRotationFromEuler(0, 0, this._angle);
+
+        if (this._speed > 0) {
+            this._speed -= this._reduceSpeed;
+            if (this._speed < 0)
+                this._speed = 0;
+        }
     }
 
     public Rotate() {
-        this._speed = 200;
+        this._speed = this._maxSpeed;
     }
 }
 
