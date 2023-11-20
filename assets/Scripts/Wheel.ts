@@ -76,7 +76,7 @@ export class Wheel extends Component {
 
         this._sector = [];
         this._angle = 0;
-        this._speed = 20;
+        this._speed = 0;
 
         var offset = 360 / 16;
         var sectorAngle = 360 / 8;
@@ -93,8 +93,12 @@ export class Wheel extends Component {
     }
 
     update(deltaTime: number) {
-        this._angle += deltaTime * this._speed;
+        this._angle -= deltaTime * this._speed;
         this.node.setRotationFromEuler(0, 0, this._angle);
+    }
+
+    public Rotate() {
+        this._speed = 200;
     }
 }
 
