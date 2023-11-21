@@ -1,6 +1,7 @@
 import { _decorator, Component, instantiate, Prefab, SpriteFrame, Node } from 'cc';
 import { Sector } from './Sector';
 import { PrizeType } from './Prize';
+import { ResultPopup } from './ResultPopup';
 const { ccclass, property } = _decorator;
 
 @ccclass('Wheel')
@@ -26,6 +27,9 @@ export class Wheel extends Component {
 
     @property({ type: SpriteFrame })
     public hammerSprite: SpriteFrame;
+
+    @property({ type: ResultPopup })
+    public resultPopup: ResultPopup;
 
     private _prizes: PrizeType[];
     private _amounts: number[];
@@ -105,8 +109,10 @@ export class Wheel extends Component {
 
         if (this._speed > 0) {
             this._speed -= this._reduceSpeed;
-            if (this._speed < 0)
+            if (this._speed <= 0) {
                 this._speed = 0;
+                this.resultPopup.Show(this._spriteFrames[0], this._amounts[0]);
+            }
         }
     }
 
