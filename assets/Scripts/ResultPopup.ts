@@ -12,6 +12,9 @@ export class ResultPopup extends Component {
     @property({ type: Label })
     public amountLabel: Label;
 
+    @property({ type: Node })
+    public playButton: Node;
+
     public Show(prizeSpriteFrame: SpriteFrame, amount: number) {
         this.prizeSprite.spriteFrame = prizeSpriteFrame;
         this.amountLabel.string = "x" + amount.toString();
@@ -20,6 +23,7 @@ export class ResultPopup extends Component {
 
     public Hide() {
         this.display.active = false;
+        this.playButton.active = true;
     }
 }
 
