@@ -1,10 +1,13 @@
-import { _decorator, Component, instantiate, Prefab, SpriteFrame } from 'cc';
+import { _decorator, Component, instantiate, Prefab, SpriteFrame, Node } from 'cc';
 import { Sector } from './Sector';
 import { PrizeType } from './Prize';
 const { ccclass, property } = _decorator;
 
 @ccclass('Wheel')
 export class Wheel extends Component {
+
+    @property({ type: Node })
+    public wheelSection: Node;
 
     @property({ type: Prefab })
     public sectorPrefab: Prefab;
@@ -86,7 +89,7 @@ export class Wheel extends Component {
         var sectorAngle = 360 / 8;
         for (let i = 0; i < this._prizes.length; i++) {
             var node = instantiate(this.sectorPrefab);
-            node.parent = this.node;
+            node.parent = this.wheelSection;
 
             node.angle = offset + sectorAngle * i;
 
@@ -98,7 +101,7 @@ export class Wheel extends Component {
 
     update(deltaTime: number) {
         this._angle -= deltaTime * this._speed;
-        this.node.setRotationFromEuler(0, 0, this._angle);
+        this.wheelSection.setRotationFromEuler(0, 0, this._angle);
 
         if (this._speed > 0) {
             this._speed -= this._reduceSpeed;
