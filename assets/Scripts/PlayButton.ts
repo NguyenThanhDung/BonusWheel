@@ -7,14 +7,8 @@ export class PlayButton extends Component {
     @property({ type: Wheel })
     public wheel: Wheel;
 
-    private _button: Button;
-
-    start() {
-        this._button = this.node.getComponent(Button);
-    }
-
     public OnPress() {
-        this._button.interactable = false;
+        this.node.active = false;
         this.wheel.Rotate();
     }
 }
