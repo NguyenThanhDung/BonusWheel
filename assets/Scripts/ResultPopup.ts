@@ -17,5 +17,9 @@ export class ResultPopup extends Component {
         this.amountLabel.string = "x" + amount.toString();
         this.display.active = true;
     }
+
+    public Hide() {
+        this.display.active = false;
+    }
 }
 
