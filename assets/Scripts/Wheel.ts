@@ -94,8 +94,7 @@ export class Wheel extends Component {
             node.angle = offset + sectorAngle * i;
 
             var sector = node.getComponent(Sector);
-            sector.prize.SetSprite(this._spriteFrames[i]);
-            sector.SetAmount(this._amounts[i]);
+            sector.SetPrize(this._prizes[i], this._amounts[i], this._spriteFrames[i]);
         }
 
         this._beginSpeed = 360;
