@@ -39,8 +39,8 @@ export class Wheel extends Component {
     private _sector: Sector[];
     private _angle: number;
     private _speed: number;
-    private _maxSpeed: number;
-    private _reduceSpeed: number;
+    private _beginSpeed: number;
+    private _acceleration: number;
 
     start() {
         this._prizes = [];
@@ -84,10 +84,6 @@ export class Wheel extends Component {
         this._spriteFrames.push(this.hammerSprite);
 
         this._sector = [];
-        this._angle = 0;
-        this._speed = 0;
-        this._maxSpeed = 200;
-        this._reduceSpeed = 0.5;
 
         var offset = 360 / 16;
         var sectorAngle = 360 / 8;
@@ -101,14 +97,21 @@ export class Wheel extends Component {
             sector.prize.SetSprite(this._spriteFrames[i]);
             sector.SetAmount(this._amounts[i]);
         }
+
+        this._beginSpeed = 360;
+        this._angle = 0;
+        this._speed = this._beginSpeed;
+
+        this._acceleration = this.CalculateAcceleration(this._beginSpeed, 202.5, 5);
     }
 
     update(deltaTime: number) {
-        this._angle -= deltaTime * this._speed;
+        var deltaAngle = this._speed * deltaTime;
+        this._angle -= deltaAngle;
         this.wheelSection.setRotationFromEuler(0, 0, this._angle);
 
         if (this._speed > 0) {
-            this._speed -= this._reduceSpeed;
+            this._speed += this._acceleration * deltaTime;
             if (this._speed <= 0) {
                 this._speed = 0;
                 this.resultPopup.Show(this._spriteFrames[0], this._amounts[0]);
@@ -116,8 +119,13 @@ export class Wheel extends Component {
         }
     }
 
+    CalculateAcceleration(beginSpeed: number, targetAngle: number, roundBeforeStop: number) {
+        var rotateDistance = targetAngle + 360 * roundBeforeStop;
+        return -(beginSpeed * beginSpeed) / (2 * rotateDistance);
+    }
+
     public Rotate() {
-        this._speed = this._maxSpeed;
+        this._speed = this._beginSpeed;
     }
 }
 
