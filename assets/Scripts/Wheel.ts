@@ -36,7 +36,7 @@ export class Wheel extends Component {
     private _dropChance: number[];
     private _spriteFrames: SpriteFrame[];
 
-    private _sector: Sector[];
+    private _sectors: Sector[];
     private _angle: number;
     private _speed: number;
     private _beginSpeed: number;
@@ -83,7 +83,7 @@ export class Wheel extends Component {
         this._spriteFrames.push(this.gemSprite);
         this._spriteFrames.push(this.hammerSprite);
 
-        this._sector = [];
+        this._sectors = [];
 
         var offset = 360 / 16;
         var sectorAngle = 360 / 8;
@@ -95,13 +95,14 @@ export class Wheel extends Component {
 
             var sector = node.getComponent(Sector);
             sector.SetPrize(this._prizes[i], this._amounts[i], this._spriteFrames[i]);
+            sector.angle = offset + sectorAngle * i;
+
+            this._sectors[i] = sector;
         }
 
         this._beginSpeed = 360;
         this._angle = 0;
-        this._speed = this._beginSpeed;
-
-        this._acceleration = this.CalculateAcceleration(this._beginSpeed, 202.5, 5);
+        this._speed = 0;
     }
 
     update(deltaTime: number) {
@@ -118,12 +119,22 @@ export class Wheel extends Component {
         }
     }
 
+    GetRandomNumber(min: number, max: number) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     CalculateAcceleration(beginSpeed: number, targetAngle: number, roundBeforeStop: number) {
         var rotateDistance = targetAngle + 360 * roundBeforeStop;
         return -(beginSpeed * beginSpeed) / (2 * rotateDistance);
     }
 
     public Rotate() {
+        var index = this.GetRandomNumber(0, this._sectors.length);
+        console.log("Rotate to index: " + index);
+        var sector = this._sectors[index];
+        this._acceleration = this.CalculateAcceleration(this._beginSpeed, sector.angle, 5);
         this._speed = this._beginSpeed;
     }
 }
