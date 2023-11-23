@@ -94,6 +94,7 @@ export class Wheel extends Component {
             node.angle = offset + sectorAngle * i;
 
             var sector = node.getComponent(Sector);
+            sector.dropChance = this._dropChance[i];
             sector.SetPrize(this._prizes[i], this._amounts[i], this._spriteFrames[i]);
             sector.angle = offset + sectorAngle * i;
 
@@ -119,11 +120,11 @@ export class Wheel extends Component {
         }
     }
 
-    GenerateDropMap(dropChance: number[]) {
+    GenerateDropMap() {
         var dropChanceAccumulation = 0;
         var count = 0;
-        for (let i = 0; i < dropChance.length; i++) {
-            dropChanceAccumulation += dropChance[i];
+        for (let i = 0; i < this._sectors.length; i++) {
+            dropChanceAccumulation += this._sectors[i].dropChance;
             do {
                 this._dropMap.push(i);
                 count++;
@@ -151,7 +152,7 @@ export class Wheel extends Component {
 
     public Rotate() {
         if (this._dropMap.length == 0)
-            this.GenerateDropMap(this._dropChance);
+            this.GenerateDropMap();
 
         var dropMapIndex = this.GetRandomNumber(0, this._dropMap.length - 1);
         console.log("dropMapIndex: " + dropMapIndex);
