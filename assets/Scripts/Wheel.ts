@@ -160,6 +160,8 @@ export class Wheel extends Component {
         console.log("sectorIndex: " + sectorIndex);
         this._dropMap.splice(dropMapIndex, 1);
         var sector = this._sectors[sectorIndex];
+        console.log("Reward: " + sector.prize.GetTypeString());
+
         console.log(this._dropMap);
 
         var beginSpeed = 720;

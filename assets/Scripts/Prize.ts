@@ -13,13 +13,17 @@ export enum PrizeType {
 export class Prize extends Component {
     @property({ type: Label })
     public amountLabel: Label;
-    
+
     private _type: PrizeType;
     private _amount: number;
     private _sprite: Sprite;
 
     onLoad() {
         this._sprite = this.node.getComponent(Sprite);
+    }
+
+    public GetTypeString() {
+        return PrizeType[this._type];
     }
 
     public SetType(type: PrizeType) {
