@@ -39,7 +39,6 @@ export class Wheel extends Component {
     private _sectors: Sector[];
     private _angle: number;
     private _speed: number;
-    private _beginSpeed: number;
     private _acceleration: number;
 
     start() {
@@ -100,7 +99,6 @@ export class Wheel extends Component {
             this._sectors[i] = sector;
         }
 
-        this._beginSpeed = 360;
         this.Reset();
     }
 
@@ -140,8 +138,9 @@ export class Wheel extends Component {
         console.log("Rotate to index: " + index);
         var sector = this._sectors[index];
 
-        this._acceleration = this.CalculateAcceleration(this._beginSpeed, sector.angle, 5);
-        this._speed = this._beginSpeed;
+        var beginSpeed = 720;
+        this._acceleration = this.CalculateAcceleration(beginSpeed, sector.angle, 3);
+        this._speed = beginSpeed;
 
         this.resultPopup.SetPrize(sector.prize);
     }
