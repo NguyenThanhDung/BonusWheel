@@ -101,8 +101,7 @@ export class Wheel extends Component {
         }
 
         this._beginSpeed = 360;
-        this._angle = 0;
-        this._speed = 0;
+        this.Reset();
     }
 
     update(deltaTime: number) {
@@ -128,6 +127,12 @@ export class Wheel extends Component {
     CalculateAcceleration(beginSpeed: number, targetAngle: number, roundBeforeStop: number) {
         var rotateDistance = targetAngle + 360 * roundBeforeStop;
         return -(beginSpeed * beginSpeed) / (2 * rotateDistance);
+    }
+
+    public Reset() {
+        this._speed = 0;
+        this._angle = 0;
+        this.wheelSection.setRotationFromEuler(0, 0, 0);
     }
 
     public Rotate() {
