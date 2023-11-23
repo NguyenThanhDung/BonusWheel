@@ -40,6 +40,7 @@ export class Wheel extends Component {
     private _angle: number;
     private _speed: number;
     private _acceleration: number;
+    private _dropMap: number[];
 
     start() {
         this._prizes = [];
@@ -99,6 +100,8 @@ export class Wheel extends Component {
             this._sectors[i] = sector;
         }
 
+        this._dropMap = [];
+
         this.Reset();
     }
 
@@ -114,6 +117,19 @@ export class Wheel extends Component {
                 this.resultPopup.Show();
             }
         }
+    }
+
+    GenerateDropMap(dropChance: number[]) {
+        var dropChanceAccumulation = 0;
+        var count = 0;
+        for (let i = 0; i < dropChance.length; i++) {
+            dropChanceAccumulation += dropChance[i];
+            do {
+                this._dropMap.push(i);
+                count++;
+            } while (count < dropChanceAccumulation);
+        }
+        console.log(this._dropMap);
     }
 
     GetRandomNumber(min: number, max: number) {
@@ -134,9 +150,16 @@ export class Wheel extends Component {
     }
 
     public Rotate() {
-        var index = this.GetRandomNumber(0, this._sectors.length - 1);
-        console.log("Rotate to index: " + index);
-        var sector = this._sectors[index];
+        if (this._dropMap.length == 0)
+            this.GenerateDropMap(this._dropChance);
+
+        var dropMapIndex = this.GetRandomNumber(0, this._dropMap.length - 1);
+        console.log("dropMapIndex: " + dropMapIndex);
+        var sectorIndex = this._dropMap[dropMapIndex];
+        console.log("sectorIndex: " + sectorIndex);
+        this._dropMap.splice(dropMapIndex, 1);
+        var sector = this._sectors[sectorIndex];
+        console.log(this._dropMap);
 
         var beginSpeed = 720;
         this._acceleration = this.CalculateAcceleration(beginSpeed, sector.angle, 3);
