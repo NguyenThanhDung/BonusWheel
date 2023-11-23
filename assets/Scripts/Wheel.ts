@@ -113,7 +113,7 @@ export class Wheel extends Component {
             this._speed += this._acceleration * deltaTime;
             if (this._speed <= 0) {
                 this._speed = 0;
-                this.resultPopup.Show(this._spriteFrames[0], this._amounts[0]);
+                this.resultPopup.Show();
             }
         }
     }
@@ -139,8 +139,11 @@ export class Wheel extends Component {
         var index = this.GetRandomNumber(0, this._sectors.length);
         console.log("Rotate to index: " + index);
         var sector = this._sectors[index];
+
         this._acceleration = this.CalculateAcceleration(this._beginSpeed, sector.angle, 5);
         this._speed = this._beginSpeed;
+
+        this.resultPopup.SetPrize(sector.prize);
     }
 }
 

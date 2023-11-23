@@ -1,4 +1,5 @@
 import { _decorator, Component, Label, Node, Sprite, SpriteFrame } from 'cc';
+import { Prize } from './Prize';
 const { ccclass, property } = _decorator;
 
 @ccclass('ResultPopup')
@@ -15,9 +16,12 @@ export class ResultPopup extends Component {
     @property({ type: Node })
     public playButton: Node;
 
-    public Show(prizeSpriteFrame: SpriteFrame, amount: number) {
-        this.prizeSprite.spriteFrame = prizeSpriteFrame;
-        this.amountLabel.string = "x" + amount.toString();
+    public SetPrize(prize: Prize) {
+        this.prizeSprite.spriteFrame = prize.GetSpriteFrame();
+        this.amountLabel.string = "x" + prize.GetAmount();
+    }
+
+    public Show() {
         this.display.active = true;
     }
 

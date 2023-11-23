@@ -26,9 +26,17 @@ export class Prize extends Component {
         this._type = type;
     }
 
+    public GetAmount() {
+        return this._amount;
+    }
+
     public SetAmount(amount: number) {
         this._amount = amount;
         this.amountLabel.string = "x" + amount.toString();
+    }
+
+    public GetSpriteFrame() {
+        return this._sprite.spriteFrame;
     }
 
     public SetSprite(spriteFrame: SpriteFrame) {
