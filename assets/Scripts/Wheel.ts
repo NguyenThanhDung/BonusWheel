@@ -136,7 +136,7 @@ export class Wheel extends Component {
     }
 
     public Rotate() {
-        var index = this.GetRandomNumber(0, this._sectors.length);
+        var index = this.GetRandomNumber(0, this._sectors.length - 1);
         console.log("Rotate to index: " + index);
         var sector = this._sectors[index];
 
