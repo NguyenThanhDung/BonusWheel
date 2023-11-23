@@ -42,7 +42,7 @@ export class Wheel extends Component {
     private _acceleration: number;
     private _dropMap: number[];
 
-    private _testResult: Map<String, number>;
+    private _testResult: Map<number, number>;
 
     start() {
         this._prizes = [];
@@ -166,11 +166,11 @@ export class Wheel extends Component {
         var sector = this._sectors[sectorIndex];
         console.log("Reward: " + sector.prize.GetTypeString());
 
-        if (this._testResult.has(sector.prize.GetTypeString())) {
-            var count = this._testResult.get(sector.prize.GetTypeString());
-            this._testResult.set(sector.prize.GetTypeString(), count + 1);
+        if (this._testResult.has(sectorIndex)) {
+            var count = this._testResult.get(sectorIndex);
+            this._testResult.set(sectorIndex, count + 1);
         } else {
-            this._testResult.set(sector.prize.GetTypeString(), 1);
+            this._testResult.set(sectorIndex, 1);
         }
         console.log(this._dropMap);
 
@@ -182,7 +182,7 @@ export class Wheel extends Component {
     }
 
     public Test() {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 1000; i++) {
             this.Rotate();
         }
         console.log(this._testResult);
